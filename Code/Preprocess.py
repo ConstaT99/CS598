@@ -9,10 +9,14 @@ from torchvision import transforms
 from PIL import Image
 
 
-class Preprocess(Dataset):
+class Anime(Dataset):
 
     def __init__(self, root, resize, mode):
-        super(Preprocess, self).__init__()
+        # root is the directory of the dataset
+        # resize the output size of the picture
+        # mode is train or test or validation
+
+        super(Anime, self).__init__()
 
         self.root = root
         self.resize = resize
@@ -28,14 +32,17 @@ class Preprocess(Dataset):
         self.images, self.labels = self.load_csv('images.csv')
 
         if mode == 'train':
-            self.images = self.images[:int(0.6 * len(self.images))]
-            self.labels = self.labels[:int(0.6 * len(self.labels))]
+            self.images = self.images[:int(0.8 * len(self.images))]
+            self.labels = self.labels[:int(0.8 * len(self.labels))]
         elif mode == 'val':
-            self.images = self.images[int(0.6 * len(self.images)):int(0.8 * len(self.images))]
-            self.labels = self.labels[int(0.6 * len(self.labels)):int(0.8 * len(self.labels))]
+            self.images = self.images[int(0.8 * len(self.images)):int(0.9 * len(self.images))]
+            self.labels = self.labels[int(0.8 * len(self.labels)):int(0.9 * len(self.labels))]
+        elif mode == 'display':
+            self.images = self.images
+            self.labels = self.labels
         else:
-            self.images = self.images[int(0.8 * len(self.images)):]
-            self.labels = self.labels[int(0.8 * len(self.labels)):]
+            self.images = self.images[int(0.9 * len(self.images)):]
+            self.labels = self.labels[int(0.9 * len(self.labels)):]
 
     def load_csv(self, filename):
 
@@ -114,14 +121,15 @@ def main():
     #
     # viz = visdom.Visdom()
 
-    db = Preprocess('..\\Images', 64, 'train')
+    db = Anime('..\\Images', 64, 'train')
 
     x, y = next(iter(db))
     # print('sample:', x.shape, y.shape, y)
 
     # viz.image(db.denormalize(x), win='sample_x', opts=dict(title='sample_x'))
 
-    loader = DataLoader(db, batch_size=32, shuffle=True, num_workers=8)
+    # loader = DataLoader(db, batch_size=32, shuffle=True, num_workers=8)
+    print(db.name2label)
 
     # for x, y in loader:
     #     viz.images(db.denormalize(x), nrow=8, win='batch', opts=dict(title='batch'))
