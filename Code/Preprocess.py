@@ -50,6 +50,7 @@ class Anime(Dataset):
             images = []
             for name in self.name2label.keys():
                 images += glob.glob(os.path.join(self.root, name, "*.png"))
+                images += glob.glob(os.path.join(self.root, name, "*.jpg"))
 
             # 305 images
             # print(len(images), images)
