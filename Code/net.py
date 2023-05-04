@@ -68,7 +68,7 @@ class ResNet18(nn.Module):
         self.blk4 = ResBlk(128, 256, stride=2)
 
         # [b, 256, 5, 5]
-        self.outlayer = nn.Linear(256*4*4, num_class)
+        self.outlayer = nn.Linear(256*2*2, num_class)
 
     def forward(self, x):
         """
@@ -98,8 +98,8 @@ def main():
     print('block:', out.shape)
 
 
-    model = ResNet18(21)
-    tmp = torch.randn(2, 3, 512, 512)
+    model = ResNet18(50)
+    tmp = torch.randn(2, 3, 224, 224)
     out = model(tmp)
     print('resnet:', out.shape)
 
