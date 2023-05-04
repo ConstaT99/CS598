@@ -135,7 +135,7 @@ def main():
     # for x, y in loader:
     #     viz.images(db.denormalize(x), nrow=8, win='batch', opts=dict(title='batch'))
     #     viz.text(str(y.numpy()), win='label', opts=dict(title='batch-y'))
-    #
+    
     #     time.sleep(10)
 
 
