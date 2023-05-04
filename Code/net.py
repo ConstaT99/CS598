@@ -98,7 +98,7 @@ def main():
     print('block:', out.shape)
 
 
-    model = ResNet18(4)
+    model = ResNet18(21)
     tmp = torch.randn(2, 3, 512, 512)
     out = model(tmp)
     print('resnet:', out.shape)
