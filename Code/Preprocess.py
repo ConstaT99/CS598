@@ -37,7 +37,7 @@ class Anime(Dataset):
         elif mode == 'val':
             self.images = self.images[int(0.8 * len(self.images)):int(0.9 * len(self.images))]
             self.labels = self.labels[int(0.8 * len(self.labels)):int(0.9 * len(self.labels))]
-        elif mode == 'display':
+        elif mode == 'all':
             self.images = self.images
             self.labels = self.labels
         else:
