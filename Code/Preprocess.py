@@ -85,10 +85,6 @@ class Anime(Dataset):
         mean = [0.485, 0.456, 0.406]
         std = [0.229, 0.224, 0.225]
 
-        # x_hat = (x-mean)/std
-        # x = x_hat*std = mean
-        # x: [c, h, w]
-        # mean: [3] => [3, 1, 1]
         mean = torch.tensor(mean).unsqueeze(1).unsqueeze(1)
         std = torch.tensor(std).unsqueeze(1).unsqueeze(1)
 
@@ -103,6 +99,7 @@ class Anime(Dataset):
         tf = transforms.Compose([
             lambda x: Image.open(x).convert('RGB'),  # image data
             transforms.Resize((int(self.resize * 1.25), int(self.resize * 1.25))),
+            transforms.RandomHorizontalFlip(),
             transforms.RandomRotation(15),
             transforms.CenterCrop(self.resize),
             transforms.ToTensor(),
